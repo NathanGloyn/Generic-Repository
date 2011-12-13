@@ -20,7 +20,7 @@ namespace RepositoryTest
     {
         public void DisplayOrders()
         {
-            IRepository<Order> repo = new Repository<Order>(new NorthwindDataContext());
+            IRepository<Order> repo = new Repository<Order>(new RepositoryTestDataContext());
 
             var allOrders = repo.GetAll();
 
@@ -61,12 +61,12 @@ namespace RepositoryTest
 
             Order updateOrder;
 
-            IRepository<Order> repo2 = new Repository<Order>(new NorthwindDataContext());
+            IRepository<Order> repo2 = new Repository<Order>(new RepositoryTestDataContext());
             
             updateOrder = repo2.GetById(11078);
 
 
-            IRepository<Order> repo3 = new Repository<Order>(new NorthwindDataContext());
+            IRepository<Order> repo3 = new Repository<Order>(new RepositoryTestDataContext());
             
             updateOrder.EmployeeID = 1;
             repo3.Update(updateOrder); 

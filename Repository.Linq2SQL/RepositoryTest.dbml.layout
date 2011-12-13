@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Northwind">
-  <DataContextMoniker Name="/NorthwindDataContext" />
+  <DataContextMoniker Name="/RepositoryTestDataContext" />
   <nestedChildShapes>
     <classShape Id="02b566d1-f778-4ac2-bc12-d98c9a1162d0" absoluteBounds="0.5, 0.625, 2, 3.5016097005208326">
-      <DataClassMoniker Name="/NorthwindDataContext/Order" />
+      <DataClassMoniker Name="/RepositoryTestDataContext/Order" />
       <nestedChildShapes>
         <elementListCompartment Id="71424d34-cf74-4d64-96c6-0cc6a660d763" absoluteBounds="0.51500000000000012, 1.085, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>

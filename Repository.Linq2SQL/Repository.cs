@@ -20,6 +20,9 @@ namespace Repository.Linq2SQL
 
         public T GetById(int id)
         {
+            if(id < 0)
+                throw  new ArgumentException("Id cannot be less than zero", "id");
+
             var itemParameter = Expression.Parameter(typeof(T), "item");
 
             var whereExpression = Expression.Lambda<Func<T, bool>>

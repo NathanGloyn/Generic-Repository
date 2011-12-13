@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>6ebe21ad-aee5-48a6-8138-7844266bb323</ProjectGuid>
+    <ProjectGuid>{47A9B50F-A999-4AAD-B02E-BF1304BFF1B3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Repository.Linq2SQL.Test</RootNamespace>
@@ -31,17 +31,52 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Utilities.UnitTest">
+      <HintPath>..\lib\Utilities.UnitTest.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AssemblySetup.cs" />
+    <Compile Include="When_retrieving_records_by_id.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository.Linq2SQL\Repository.Linq2SQL.csproj">
+      <Project>{A03454B6-3353-4CEC-9614-6CE81FAF84E5}</Project>
+      <Name>Repository.Linq2SQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.Interface.csproj">
+      <Project>{3E8D78E9-94D4-4912-8ACC-DB29A07E1131}</Project>
+      <Name>Repository.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestScripts\01_Create_DataBase.sql" />
+    <Content Include="TestScripts\02_Create_Table.sql" />
+    <Content Include="TestScripts\03_Insert_Order.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,581 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Utilities.UnitTest</name>
+    </assembly>
+    <members>
+        <member name="T:UnitTest.Selenium.SeleniumServer">
+            <summary>
+            Class encapsulates functionality for starting and stopping Selenium Server
+            </summary>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="location">Directory holding the selenium package file</param>
+            <param name="package">Name of the selenium package file.  Must contain words selenium-server to be valid</param>
+            <param name="shoulDisplayCommandWindow">Indicateds if the command window should be displayed</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if location or package is null or empty string</exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException">Thrown if the location provided is not valid</exception>
+            <exception cref="T:System.ArgumentException">Thrown if the name of the package does not match expected pattern</exception>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown if the package file cannot be found in the stated location</exception>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.Create(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a Selenium Server instance
+            </summary>
+            <param name="location">Directory where the selenium jar file is located</param>
+            <param name="package">Is the name of the selenium jar file to execute</param>
+            <param name="displayCommandWindow">Indicates if the command window running selenium should be displayed</param>
+            <returns>Instance of the SeleniumServer class</returns>
+            <remarks>Class acts as a singleton to ensure only one instance of the selenium server is running at any one time.</remarks>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.Start">
+            <summary>
+            Starts the selenium server
+            </summary>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.Stop">
+            <summary>
+            Stops all instances and the selenium server
+            </summary>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.StartProcess(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a new process running the jar file
+            </summary>
+            <param name="workingDirectory">directory where application will be run from</param>
+            <param name="arguments">Command line arguments to be passed to the application</param>
+            <param name="showWindow">Whether the CMD window should be displayed</param>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.Dispose">
+            <summary>
+            Dispose method exposed to allow client to perform cleanup
+            </summary>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumServer.Dispose(System.Boolean)">
+            <summary>
+            Disposes resources
+            </summary>
+            <param name="disposing">Flag to indicate we are disposing of resources</param>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumServer.Started">
+            <summary>
+            Indicates if the Selenium Server is started
+            </summary>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumServer.Location">
+            <summary>
+            Location of the selenium package
+            </summary>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumServer.Package">
+            <summary>
+            Name of the selenium package file e.g. selenium-server.jar
+            </summary>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumServer.ShouldDisplayWindow">
+            <summary>
+            Indicateds if the command window will be displayed
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.DataComparer.CheckDataIsAsExpected(System.Data.DataTable,System.Data.DataTable)">
+            <summary>
+            Compares 2 data tables and ensures that the columns and data match
+            </summary>
+            <param name="expected">DataTable holding expected data</param>
+            <param name="actual">DataTable holding actual data</param>
+        </member>
+        <member name="M:UnitTest.Database.DataComparer.CheckDataIsAsExpected(System.Data.DataTable,System.Data.DataSet)">
+            <summary>
+            Compares the first table in a data set against an expected table of data
+            </summary>
+            <param name="expected">DataTable holding expected data</param>
+            <param name="actualData">DataSet that holds table to be compared against</param>
+        </member>
+        <member name="M:UnitTest.Database.DataComparer.CheckObjectMatchesData(System.Object,System.Data.DataRow)">
+            <summary>
+            Compares an object to data extracted from the db
+            </summary>
+            <param name="toCompare">actual object to compare</param>
+            <param name="expected">expected data to compare object against</param>
+            <returns>List of any properties that don't match</returns>
+            <remarks>The columns in the data row must be named the same as the properties on the object or the data will not be compared</remarks>
+        </member>
+        <member name="M:UnitTest.Database.DataComparer.CompareDataSets(System.Data.DataSet,System.String,System.Data.DataSet,System.String)">
+            <summary>
+            Compares the first data table of 2 data sets to ensure they match
+            </summary>
+            <param name="firstDataSet">DataSet to compare</param>
+            <param name="sortClause1">Clause to sort firstDataSet by</param>
+            <param name="secondDataSet">DataSet to compare</param>
+            <param name="sortClause2">Clause to sort secondDataSet by</param>
+            <returns></returns>
+        </member>
+        <member name="T:UnitTest.Selenium.SeleniumSupport">
+            <summary>
+            Class that provides support for using selenium in unit tests
+            </summary>
+            <remarks>Class is created as a Singleton so that it is not continually created and destroyed</remarks>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.#ctor(UnitTest.Selenium.SeleniumServer)">
+            <summary>
+            Private constructor to remove ability for class to be instantiated
+            </summary>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.Create(UnitTest.Selenium.SeleniumServer)">
+            <summary>
+            Creates a new instance of this class
+            </summary>
+            <param name="seleniumServer">Instance of the SeleniumServer to use</param>
+            <returns>Instance of SeleniumSupport class</returns>
+            <exception cref="T:System.ArgumentNullException">Exception thrown if the selenium server is not provided</exception>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.Start(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Starts an instance of selenium
+            </summary>
+            <param name="serverHost">the server hosting the site to be tested</param>
+            <param name="serverPort">the port that selenium use for running</param>
+            <param name="browserString">string holding the browser that we want to test in</param>
+            <param name="browserUrl">Url to open to begin testing</param>
+            <returns>Instance of selenium opened using arguments supplied</returns>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if any of the expected
+            string arguments are passed as null or empty string</exception>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.CreateInstance(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Creates an instance of selenium to be used by the user
+            </summary>
+            <param name="serverHost">the server hosting the site to be tested</param>
+            <param name="serverPort">the port that selenium use for running</param>
+            <param name="browserString">string holding the browser that we want to test in</param>
+            <param name="browserUrl">Url to open to begin testing</param>
+            <returns>Instance of selenium ready to use</returns>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if any of the expected
+            string arguments are passed as null or empty string</exception>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.DisposeInstance(Selenium.ISelenium)">
+            <summary>
+            Disposes of an instance of selenium
+            </summary>
+            <param name="instance">The instance to be disposed</param>
+            <remarks>This method only needs to be called if a specific instance of selenium has been created
+            and used rather than the default instance provided by the class</remarks>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.Dispose">
+            <summary>
+            Dispose method exposed to allow client to perform cleanup
+            </summary>
+        </member>
+        <member name="M:UnitTest.Selenium.SeleniumSupport.Dispose(System.Boolean)">
+            <summary>
+            Disposes resources
+            </summary>
+            <param name="disposing">Flag to indicate we are disposing of resources</param>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumSupport.Server">
+            <summary>
+            Holds a reference to the class that provides access to the actual Selenium server
+            </summary>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumSupport.Instances">
+            <summary>
+            List of instances created
+            </summary>
+            <remarks>Created as internally accessible as only used for testing purposes</remarks>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumSupport.Instance">
+            <summary>
+            Provides access to the singleton instance of this support class
+            </summary>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumSupport.Selenium">
+            <summary>
+            Returns instance of current selenium object 
+            </summary>
+        </member>
+        <member name="P:UnitTest.Selenium.SeleniumSupport.SeleniumServerStarted">
+            <summary>
+            Indicates if the selenium server has been started
+            </summary>
+        </member>
+        <member name="T:UnitTest.Database.DatabaseSupport">
+            <summary>
+            Class provides functionality to help developer perform unit testing on data access code
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.#ctor(System.String)">
+            <summary>
+            Default Constructor
+            </summary>
+            <param name="connectionString">standard connection string for db to interact with</param>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting resources.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.RecreateDbSchema(System.String)">
+            <summary>
+            Method creates\recreates db
+            </summary>
+            <param name="createScriptPath">Path to the <b>directory</b> that contains the script(s) for creating database</param>
+            <remarks>The db is only created\recreated if the script file(s) or db object have changed since last created.
+            <para>If the a series of scripts is being used then a file Order.txt needs to be provided that simply holds 
+            a list of the files in the order they are to be run</para></remarks>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.RunScript(System.String)">
+            <summary>
+            Runs a specified script against a target db
+            </summary>
+            <param name="scriptPath">Path to the script file to execute</param>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.RunScript(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Runs a specified script against a target db
+            </summary>
+            <param name="scriptPath">Path to the script file to execute</param>
+            <param name="parameters">Parameters to use within the script</param>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.RunScript(System.String,System.Boolean)">
+            <summary>
+            Runs a specified script against a target db 
+            </summary>
+            <param name="scriptPath">Path to the script file to execute</param>
+            <param name="returnResults">Flag indicating we expect to be return results from executing the script</param>
+            <returns>Dataset containing data returned from executing the script</returns>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.RunScript(System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Runs a specified script against a target db
+            </summary>
+            <param name="scriptPath">Path to the script file to execute</param>
+            <param name="returnResults">Flag indicating we expect to be return results from executing the script</param>
+            <param name="parameters">Parameters to use within the script</param>
+            <returns>Dataset containing data returned from executing the script</returns>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.Dispose(System.Boolean)">
+            <summary>
+            Method to dispose of objects used 
+            </summary>
+            <param name="disposing">Flag to indicate we are currenlty disposing the object</param>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.RecreateDbWithData(System.String)">
+            <summary>
+            Recreates the db with base data
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.GetLastSchemaChange">
+            <summary>
+            Get the data of the last schema change
+            </summary>
+            <returns>DateTime the database schema was last changed.</returns>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.GetLastFileUpdate(System.String)">
+            <summary>
+            Get the last write time of specified file
+            </summary>
+            <param name="createScriptPath">Path to directory where create script(s) are held.</param>
+            <returns>DateTime newest file in directory was written to.</returns>
+        </member>
+        <member name="M:UnitTest.Database.DatabaseSupport.LoadScript(System.String)">
+            <summary>
+            Loads the path with the data provided
+            </summary>
+        </member>
+        <member name="T:UnitTest.Database.StubDbDataReader">
+            <summary>
+            Class is a stub data reader so that it can be used for testing
+            purposes where a data reader is required to test but we
+            do not want to have to actually query the database
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubDbDataReader.#ctor(System.Data.DataTable[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubDataReader"/> class. 
+            Each DataTable is a ResultSet
+            </summary>
+            <param name="tables">The tables to use as Results</param>
+        </member>
+        <member name="M:UnitTest.Database.StubDbDataReader.#ctor(UnitTest.Database.StubResultSet[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubDataReader"/> class. 
+            Each row in the arraylist is a result set.
+            </summary>
+            <param name="resultSets">The result sets to add.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubDbDataReader.#ctor(UnitTest.Database.StubResultSetCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubDataReader"/> class. 
+            Each row in the arraylist is a result set.
+            </summary>
+            <param name="stubResultSets">The result sets.</param>
+        </member>
+        <member name="T:UnitTest.Database.StubDataReader">
+            <summary>
+            This class fakes up a data reader.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubDataReader.#ctor(UnitTest.Database.StubResultSetCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubDataReader"/> class. 
+            Each row in the arraylist is a result set.
+            </summary>
+            <param name="stubResultSets">The result sets.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubDataReader.#ctor(UnitTest.Database.StubResultSet[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubDataReader"/> class. 
+            Each row in the arraylist is a result set.
+            </summary>
+            <param name="resultSets">The result sets to add.</param>
+        </member>
+        <member name="P:UnitTest.Database.StubDataReader.Depth">
+            <summary>
+            Gets a value indicating the depth of nesting for the current row.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:UnitTest.Database.StubResultSet">
+            <summary>
+            Represents a result set for the StubDataReader.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSet.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubResultSet"/> class with the column names.
+            </summary>
+            <param name="fieldNames">The column names.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSet.AddRow(System.Object[])">
+            <summary>
+            Adds the row.
+            </summary>
+            <param name="values">The values.</param>
+        </member>
+        <member name="M:UnitTest.Database.NameIndexCollection.Add(System.String,System.Int32)">
+            <summary>
+            Adds the specified name.
+            </summary>
+            <param name="key">The name.</param>
+            <param name="index">The index.</param>
+        </member>
+        <member name="P:UnitTest.Database.NameIndexCollection.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Int32"/> with the specified key.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:UnitTest.Database.StubRow.#ctor(System.Object[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubRow"/> class.
+            </summary>
+            <param name="values">The values.</param>
+        </member>
+        <member name="P:UnitTest.Database.StubRow.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified i.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:UnitTest.Database.StubRowCollection">
+            <summary>
+            Represents a collection of <see cref="T:UnitTest.Database.StubRow">StubRow</see>.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> class.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.#ctor(UnitTest.Database.StubRowCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> class containing the elements of the specified source collection.
+            </summary>
+            <param name="value">A <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> with which to initialize the collection.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.#ctor(UnitTest.Database.StubRow[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> class containing the specified array of <see cref="T:UnitTest.Database.StubRow">StubRow</see> Components.
+            </summary>
+            <param name="value">An array of <see cref="T:UnitTest.Database.StubRow">StubRow</see> Components with which to initialize the collection. </param>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.AddRange(UnitTest.Database.StubRow[])">
+            <summary>
+            Copies the elements of the specified <see cref="T:UnitTest.Database.StubRow">StubRow</see> array to the end of the collection.
+            </summary>
+            <param name="value">An array of type <see cref="T:UnitTest.Database.StubRow">StubRow</see> containing the Components to add to the collection.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.AddRange(UnitTest.Database.StubRowCollection)">
+            <summary>
+            Adds the contents of another <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> to the end of the collection.
+            </summary>
+            <param name="value">A <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> containing the Components to add to the collection. </param>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.Contains(UnitTest.Database.StubRow)">
+            <summary>
+            Gets a value indicating whether the collection contains the specified <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see>.
+            </summary>
+            <param name="value">The <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> to search for in the collection.</param>
+            <returns><b>true</b> if the collection contains the specified object; otherwise, <b>false</b>.</returns>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.CopyTo(UnitTest.Database.StubRow[],System.Int32)">
+            <summary>
+            Copies the collection Components to a one-dimensional <see cref="T:System.Array">Array</see> instance beginning at the specified index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array">Array</see> that is the destination of the values copied from the collection.</param>
+            <param name="index">The index of the array at which to begin inserting.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.IndexOf(UnitTest.Database.StubRow)">
+            <summary>
+            Gets the index in the collection of the specified <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see>, if it exists in the collection.
+            </summary>
+            <param name="value">The <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> to locate in the collection.</param>
+            <returns>The index in the collection of the specified object, if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that can iterate through the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> instance.
+            </summary>
+            <returns>An <see cref="T:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator">StubRowCollectionEnumerator</see> for the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> instance.</returns>
+        </member>
+        <member name="P:UnitTest.Database.StubRowCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> at the specified index in the collection.
+            <para>
+            In C#, this property is the indexer for the <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> class.
+            </para>
+            </summary>
+        </member>
+        <member name="T:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator">
+            <summary>
+            Supports a simple iteration over a <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see>.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator.#ctor(UnitTest.Database.StubRowCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator">StubRowCollectionEnumerator</see> class referencing the specified <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> object.
+            </summary>
+            <param name="mappings">The <see cref="T:UnitTest.Database.StubRowCollection">StubRowCollection</see> to enumerate.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns><b>true</b> if the enumerator was successfully advanced to the next element; <b>false</b> if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>
+        </member>
+        <member name="P:UnitTest.Database.StubRowCollection.StubRowCollectionEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+        </member>
+        <member name="T:UnitTest.Database.StubResultSetCollection">
+            <summary>
+            Represents a collection of <see cref="T:UnitTest.Database.StubResultSet">ResultSet</see>.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> class.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.#ctor(UnitTest.Database.StubResultSetCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> class containing the elements of the specified source collection.
+            </summary>
+            <param name="value">A <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> with which to initialize the collection.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.#ctor(UnitTest.Database.StubResultSet[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> class containing the specified array of <see cref="T:UnitTest.Database.StubResultSet">ResultSet</see> Components.
+            </summary>
+            <param name="value">An array of <see cref="T:UnitTest.Database.StubResultSet">ResultSet</see> Components with which to initialize the collection. </param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.AddRange(UnitTest.Database.StubResultSet[])">
+            <summary>
+            Copies the elements of the specified <see cref="T:UnitTest.Database.StubResultSet">ResultSet</see> array to the end of the collection.
+            </summary>
+            <param name="value">An array of type <see cref="T:UnitTest.Database.StubResultSet">ResultSet</see> containing the Components to add to the collection.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.AddRange(UnitTest.Database.StubResultSetCollection)">
+            <summary>
+            Adds the contents of another <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> to the end of the collection.
+            </summary>
+            <param name="value">A <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> containing the Components to add to the collection. </param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.Contains(UnitTest.Database.StubResultSet)">
+            <summary>
+            Gets a value indicating whether the collection contains the specified <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see>.
+            </summary>
+            <param name="value">The <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> to search for in the collection.</param>
+            <returns><b>true</b> if the collection contains the specified object; otherwise, <b>false</b>.</returns>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.CopyTo(UnitTest.Database.StubResultSet[],System.Int32)">
+            <summary>
+            Copies the collection Components to a one-dimensional <see cref="T:System.Array">Array</see> instance beginning at the specified index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array">Array</see> that is the destination of the values copied from the collection.</param>
+            <param name="index">The index of the array at which to begin inserting.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.IndexOf(UnitTest.Database.StubResultSet)">
+            <summary>
+            Gets the index in the collection of the specified <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see>, if it exists in the collection.
+            </summary>
+            <param name="value">The <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> to locate in the collection.</param>
+            <returns>The index in the collection of the specified object, if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that can iterate through the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> instance.
+            </summary>
+            <returns>An <see cref="T:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator">ResultSetCollectionEnumerator</see> for the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> instance.</returns>
+        </member>
+        <member name="P:UnitTest.Database.StubResultSetCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> at the specified index in the collection.
+            <para>
+            In C#, this property is the indexer for the <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> class.
+            </para>
+            </summary>
+        </member>
+        <member name="T:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator">
+            <summary>
+            Supports a simple iteration over a <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see>.
+            </summary>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator.#ctor(UnitTest.Database.StubResultSetCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator">ResultSetCollectionEnumerator</see> class referencing the specified <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> object.
+            </summary>
+            <param name="mappings">The <see cref="T:UnitTest.Database.StubResultSetCollection">ResultSetCollection</see> to enumerate.</param>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns><b>true</b> if the enumerator was successfully advanced to the next element; <b>false</b> if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>
+        </member>
+        <member name="P:UnitTest.Database.StubResultSetCollection.ResultSetCollectionEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+        </member>
+    </members>
+</doc>

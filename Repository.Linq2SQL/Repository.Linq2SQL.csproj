@@ -39,9 +39,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Configuration.Interface">
-      <HintPath>..\Configuration.Interface\bin\Debug\Configuration.Interface.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -53,8 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repository.cs" />
-    <Compile Include="Northwind.designer.cs">
-      <DependentUpon>Northwind.dbml</DependentUpon>
+    <Compile Include="RepositoryTest.designer.cs">
+      <DependentUpon>RepositoryTest.dbml</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -73,9 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Northwind.dbml">
+    <None Include="RepositoryTest.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Northwind.designer.cs</LastGenOutput>
+      <LastGenOutput>RepositoryTest.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -84,8 +81,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Northwind.dbml.layout">
-      <DependentUpon>Northwind.dbml</DependentUpon>
+    <None Include="RepositoryTest.dbml.layout">
+      <DependentUpon>RepositoryTest.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
