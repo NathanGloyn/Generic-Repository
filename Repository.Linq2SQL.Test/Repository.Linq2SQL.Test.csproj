@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+      <Aliases>global, NUnitAlias</Aliases>
     </Reference>
     <Reference Include="nunit.mocks">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
@@ -55,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblySetup.cs" />
+    <Compile Include="Satisfyr.NUnit.cs" />
+    <Compile Include="When_retrieving_all_records.cs" />
     <Compile Include="When_retrieving_records_by_id.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,9 +77,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="TestScripts\01_Create_DataBase.sql" />
-    <Content Include="TestScripts\02_Create_Table.sql" />
-    <Content Include="TestScripts\03_Insert_Order.sql" />
+    <Content Include="TestScripts\Setup\01_Create_DataBase.sql" />
+    <Content Include="TestScripts\Setup\02_Create_Table.sql" />
+    <Content Include="TestScripts\Setup\03_Insert_Order.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
