@@ -54,6 +54,8 @@ namespace Repository.Linq2SQL
 
         public void Insert(T entity)
         {
+            if (entity == null) throw new ArgumentNullException("entity");
+
             dataContext.GetTable<T>().InsertOnSubmit(entity);
             dataContext.SubmitChanges();
         }
@@ -99,7 +101,6 @@ namespace Repository.Linq2SQL
             foreach (var propertyInfo in entityProperties)
             {
                 var currentProperty = entityType.GetProperty(propertyInfo.Name);
-                if (currentProperty == null) continue;
                 currentProperty.SetValue(originalEntity, propertyInfo.GetValue(newEntity, null), null);
             }
         }

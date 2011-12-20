@@ -59,6 +59,7 @@
     <Compile Include="DBHelper.cs" />
     <Compile Include="Satisfyr.NUnit.cs" />
     <Compile Include="When_finding_records.cs" />
+    <Compile Include="When_inserting_data.cs" />
     <Compile Include="When_retrieving_all_records.cs" />
     <Compile Include="When_retrieving_records_by_id.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,9 +82,11 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="TestScripts\Reset_Update_ShipName.sql" />
+    <Content Include="TestScripts\Reset_Update_ShipRegion.sql" />
     <Content Include="TestScripts\Setup\01_Create_DataBase.sql" />
     <Content Include="TestScripts\Setup\02_Create_Table.sql" />
     <Content Include="TestScripts\Setup\03_Insert_Order.sql" />
+    <Content Include="TestScripts\Setup\04_Reset_Data.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,9 +12,10 @@ namespace Repository.Linq2SQL.Test
         {
             using (var context = new RepositoryTestDataContext())
             {
-                var repo = new Repository<Order>(context);
-
-                Assert.Throws<ArgumentException>(() => repo.GetById(-1));
+                using (var repo = new Repository<Order>(context))
+                {
+                    Assert.Throws<ArgumentException>(() => repo.GetById(-1));
+                }
             }
         }
 

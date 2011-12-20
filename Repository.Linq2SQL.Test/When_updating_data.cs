@@ -57,7 +57,89 @@ namespace Repository.Linq2SQL.Test
                 // Clean up the data so that its in the correct state
                 DBHelper.Execute(@"..\..\TestScripts\Reset_Update_ShipName.sql");
             }
+        }        
 
+        [Test]
+        public void Should_update_null_property_to_given_value()
+        {
+            Order toUpdate = null;
+
+            try
+            {
+                // Get original  -- Arrange
+                using (var context = new RepositoryTestDataContext())
+                {
+                    var repo = new Repository<Order>(context);
+
+                    toUpdate = repo.GetById(10337);
+                }
+
+                toUpdate.ShipRegion = "West";
+
+                using (var context = new RepositoryTestDataContext())
+                {
+                    var repo = new Repository<Order>(context);
+
+                    repo.Update(toUpdate);
+                }
+
+                // Requery db to Assert that data updated
+                using (var context = new RepositoryTestDataContext())
+                {
+                    var repo = new Repository<Order>(context);
+
+                    var original = repo.GetById(10337);
+
+                    Assert.AreEqual("West", original.ShipRegion);
+                }
+            }
+            finally
+            {
+                // Clean up the data so that its in the correct state
+                DBHelper.Execute(@"..\..\TestScripts\Reset_Update_ShipRegion.sql");
+            }
+        }
+
+        [Test]
+        public void Should_update_field_to_null()
+        {
+            Order toUpdate = null;
+
+            try
+            {
+                // Get original  -- Arrange
+                using (var context = new RepositoryTestDataContext())
+                {
+                    var repo = new Repository<Order>(context);
+
+                    toUpdate = repo.GetById(10337);
+                }
+
+                // alter property and then update -- Act
+                toUpdate.ShipName = null;
+
+                using (var context = new RepositoryTestDataContext())
+                {
+                    var repo = new Repository<Order>(context);
+
+                    repo.Update(toUpdate);
+                }
+
+                // Requery db to Assert that data updated
+                using (var context = new RepositoryTestDataContext())
+                {
+                    var repo = new Repository<Order>(context);
+
+                    var original = repo.GetById(10337);
+
+                    Assert.IsNull(original.ShipName);
+                }
+            }
+            finally
+            {
+                // Clean up the data so that its in the correct state
+                DBHelper.Execute(@"..\..\TestScripts\Reset_Update_ShipName.sql");
+            }
         }        
     }
 }
