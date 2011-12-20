@@ -43,6 +43,8 @@ namespace Repository.Linq2SQL
 
         public void Update(T entity)
         {
+            if (entity == null) throw new ArgumentNullException("entity");
+
             var original = GetById(GetPrimaryKeyValue(entity));
 
             ApplyChanges(original, entity);

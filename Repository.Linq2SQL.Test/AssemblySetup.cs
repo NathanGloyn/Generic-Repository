@@ -1,6 +1,5 @@
 using System.Configuration;
 using NUnit.Framework;
-using UnitTest.Database;
 
 namespace Repository.Linq2SQL.Test
 {
@@ -10,11 +9,10 @@ namespace Repository.Linq2SQL.Test
         [SetUp]
         public void Initalize()
         {
-            var DbHelper = new DatabaseSupport(ConfigurationManager.ConnectionStrings["testDB"].ConnectionString);
-
-            DbHelper.RunScript(@"..\..\TestScripts\Setup\01_Create_DataBase.sql");
-            DbHelper.RunScript(@"..\..\TestScripts\Setup\02_Create_Table.sql");
-            DbHelper.RunScript(@"..\..\TestScripts\Setup\03_Insert_Order.sql");
+            DBHelper.Execute(@"..\..\TestScripts\Setup\01_Create_DataBase.sql");
+            DBHelper.Execute(@"..\..\TestScripts\Setup\02_Create_Table.sql");
+            DBHelper.Execute(@"..\..\TestScripts\Setup\03_Insert_Order.sql");
         }   
+
     }
 }
