@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AssemblySetup.cs" />
     <Compile Include="Satisfyr.NUnit.cs" />
+    <Compile Include="When_finding_records.cs" />
     <Compile Include="When_retrieving_all_records.cs" />
     <Compile Include="When_retrieving_records_by_id.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -58,6 +58,8 @@ namespace Repository.Linq2SQL
 
         public IQueryable<T> Find(Expression<Func<T, bool>> filter)
         {
+            if (filter == null) throw new ArgumentNullException("filter");
+
             return dataContext.GetTable<T>().Where(filter);
         }
 
