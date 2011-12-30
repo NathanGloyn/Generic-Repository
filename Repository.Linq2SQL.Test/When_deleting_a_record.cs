@@ -38,7 +38,7 @@ namespace Repository.Linq2SQL.Test
 
             Assert.IsTrue(CheckRecordDeleted());
 
-            DBHelper.Execute(@"..\..\TestScripts\Insert_deleted_order.sql");
+            TestScriptHelper.InsertDeletedRecord();
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Repository.Linq2SQL.Test
 
             Assert.IsTrue(CheckRecordDeleted());
 
-            DBHelper.Execute(@"..\..\TestScripts\Insert_deleted_order.sql");
+            TestScriptHelper.InsertDeletedRecord();
         }
 
         private bool CheckRecordDeleted()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -7,13 +8,15 @@ namespace Repository.EntityFramework
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly RepositoryTest objectContext;
+        private readonly ObjectContext context;
+        private IObjectSet<T> objectSet;
         private bool disposed = false;
 
-        public Repository(RepositoryTest context)
+        public Repository(ObjectContext context)
         {
-            if (objectContext == null) throw new ArgumentNullException("context");
-            objectContext = context;
+            if (context == null) throw new ArgumentNullException("context");
+            this.context = context;
+            objectSet = this.context.CreateObjectSet<T>();
         }
 
         public T GetById(int id)
@@ -23,7 +26,7 @@ namespace Repository.EntityFramework
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return objectSet.AsEnumerable();
         }
 
         public void Update(T entity)
@@ -36,9 +39,14 @@ namespace Repository.EntityFramework
             throw new NotImplementedException();
         }
 
-        public IQueryable<T> Find(Expression<Func<T, bool>> filter)
+        public void Delete(T entity)
         {
             throw new NotImplementedException();
+        }
+
+        public IQueryable<T> Find(Expression<Func<T, bool>> filter)
+        {
+            return objectSet.Where(filter);
         }
 
         public void Dispose()
@@ -57,7 +65,7 @@ namespace Repository.EntityFramework
                 // and unmanaged resources.
                 if (disposing)
                 {
-                    objectContext.Dispose();
+                    context.Dispose();
                 }
 
                 // Note disposing has been done.

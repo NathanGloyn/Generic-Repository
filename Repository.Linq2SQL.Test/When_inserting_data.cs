@@ -9,7 +9,7 @@ namespace Repository.Linq2SQL.Test
         [TearDown]
         public void ResetData()
         {
-            DBHelper.Execute(@"..\..\TestScripts\Setup\04_Reset_Data.sql");
+            TestScriptHelper.ResetData();
         }
 
         [Test]

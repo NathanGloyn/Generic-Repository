@@ -55,7 +55,7 @@ namespace Repository.Linq2SQL.Test
             finally
             {
                 // Clean up the data so that its in the correct state
-                DBHelper.Execute(@"..\..\TestScripts\Reset_Update_ShipName.sql");
+                TestScriptHelper.ResetShipName();
             }
         }        
 
@@ -96,7 +96,7 @@ namespace Repository.Linq2SQL.Test
             finally
             {
                 // Clean up the data so that its in the correct state
-                DBHelper.Execute(@"..\..\TestScripts\Reset_Update_ShipRegion.sql");
+                TestScriptHelper.ResetShipRegion();
             }
         }
 
@@ -138,7 +138,7 @@ namespace Repository.Linq2SQL.Test
             finally
             {
                 // Clean up the data so that its in the correct state
-                DBHelper.Execute(@"..\..\TestScripts\Reset_Update_ShipName.sql");
+                TestScriptHelper.ResetShipName();
             }
         }        
     }

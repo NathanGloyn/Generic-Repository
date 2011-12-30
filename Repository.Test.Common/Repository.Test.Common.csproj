@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FBD51285-9745-4865-865B-3A9495990EAD}</ProjectGuid>
+    <ProjectGuid>{8E050498-0AEC-4995-8BAD-168FDD9A6B0D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Repository.EntityFramework</RootNamespace>
-    <AssemblyName>Repository.EntityFramework</AssemblyName>
+    <RootNamespace>Repository.Test.Common</RootNamespace>
+    <AssemblyName>Repository.Test.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -32,40 +32,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+      <Aliases>global, NUnitAlias</Aliases>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Utilities.UnitTest">
+      <HintPath>..\lib\Utilities.UnitTest.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBHelper.cs" />
+    <Compile Include="TestScriptHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository.cs" />
-    <Compile Include="RepositoryTest.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RepositoryTest.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Satisfyr.NUnit.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Repository\Repository.Interface.csproj">
-      <Project>{3E8D78E9-94D4-4912-8ACC-DB29A07E1131}</Project>
-      <Name>Repository.Interface</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="RepositoryTest.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RepositoryTest.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
+    <Content Include="TestScripts\Insert_deleted_order.sql" />
+    <Content Include="TestScripts\Reset_Update_ShipName.sql" />
+    <Content Include="TestScripts\Reset_Update_ShipRegion.sql" />
+    <Content Include="TestScripts\Setup\01_Create_DataBase.sql" />
+    <Content Include="TestScripts\Setup\02_Create_Table.sql" />
+    <Content Include="TestScripts\Setup\03_Insert_Order.sql" />
+    <Content Include="TestScripts\Setup\04_Reset_Data.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

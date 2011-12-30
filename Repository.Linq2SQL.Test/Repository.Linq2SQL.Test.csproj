@@ -50,14 +50,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utilities.UnitTest">
-      <HintPath>..\lib\Utilities.UnitTest.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblySetup.cs" />
-    <Compile Include="DBHelper.cs" />
-    <Compile Include="Satisfyr.NUnit.cs" />
     <Compile Include="When_deleting_a_record.cs" />
     <Compile Include="When_finding_records.cs" />
     <Compile Include="When_inserting_data.cs" />
@@ -75,21 +70,16 @@
       <Project>{A03454B6-3353-4CEC-9614-6CE81FAF84E5}</Project>
       <Name>Repository.Linq2SQL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repository.Test.Common\Repository.Test.Common.csproj">
+      <Project>{8E050498-0AEC-4995-8BAD-168FDD9A6B0D}</Project>
+      <Name>Repository.Test.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.Interface.csproj">
       <Project>{3E8D78E9-94D4-4912-8ACC-DB29A07E1131}</Project>
       <Name>Repository.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="TestScripts\Insert_deleted_order.sql" />
-    <Content Include="TestScripts\Reset_Update_ShipName.sql" />
-    <Content Include="TestScripts\Reset_Update_ShipRegion.sql" />
-    <Content Include="TestScripts\Setup\01_Create_DataBase.sql" />
-    <Content Include="TestScripts\Setup\02_Create_Table.sql" />
-    <Content Include="TestScripts\Setup\03_Insert_Order.sql" />
-    <Content Include="TestScripts\Setup\04_Reset_Data.sql" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
