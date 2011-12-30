@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Metadata.Edm;
 using System.Data.Objects;
-using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -30,7 +29,7 @@ namespace Repository.EntityFramework
                 throw new ArgumentException("Id cannot be less than zero", "id");
 
             var pk = entitySet.ElementType.KeyMembers[0];
-            var entityKey = new EntityKey(entitySet.EntityContainer.Name + "." + entitySet.Name, pk.Name, id);
+            EntityKey entityKey = new EntityKey(entitySet.EntityContainer.Name + "." + entitySet.Name, pk.Name, id);
 
             return (T)context.GetObjectByKey(entityKey);
         }
@@ -42,7 +41,14 @@ namespace Repository.EntityFramework
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            if (entity == null) throw new ArgumentNullException("entity");
+
+            if(!IsAttached(entity))
+                objectSet.Attach(entity);
+
+            context.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            context.ApplyCurrentValues(entitySet.Name, entity);
+            context.SaveChanges();
         }
 
         public void Insert(T entity)
@@ -70,6 +76,17 @@ namespace Repository.EntityFramework
 
         }
 
+        private bool IsAttached(T entity)
+        {
+            ObjectStateEntry entry;
+            if (context.ObjectStateManager.TryGetObjectStateEntry(entity, out entry))
+            {
+                return (entry.State != EntityState.Detached);
+            }
+
+            return false;
+        }
+
         private void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.
@@ -87,5 +104,6 @@ namespace Repository.EntityFramework
 
             }
         }
+
     }
 }

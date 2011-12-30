@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using Repository.Test.Common;
 
-namespace Repository.Linq2SQL.Test
+namespace Repository.EntityFramework.Test
 {
     [TestFixture]
     public class When_updating_data
@@ -10,7 +10,7 @@ namespace Repository.Linq2SQL.Test
         [Test]
         public void Should_throw_exception_if_null_passed_in()
         {
-            using (var context = new RepositoryTestDataContext())
+            using (var context = new RepositoryTest())
             {
                 var repo = new Repository<Order>(context);
 
@@ -26,7 +26,7 @@ namespace Repository.Linq2SQL.Test
             try
             {
                 // Get original  -- Arrange
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -36,7 +36,7 @@ namespace Repository.Linq2SQL.Test
                 // alter property and then update -- Act
                 toUpdate.ShipName = "abc";
 
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -44,7 +44,7 @@ namespace Repository.Linq2SQL.Test
                 }
 
                 // Requery db to Assert that data updated
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -60,17 +60,21 @@ namespace Repository.Linq2SQL.Test
             }
         }
 
+
         [Test]
-        public void Should_update_entity_in_single_context()
+        public void Should_update_entity_using_single_context()
         {
+            Order toUpdate = null;
+
             try
             {
                 // Get original  -- Arrange
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
-                    var toUpdate = repo.GetById(10337);
+                    toUpdate = repo.GetById(10337);
+
 
                     // alter property and then update -- Act
                     toUpdate.ShipName = "abc";
@@ -79,7 +83,7 @@ namespace Repository.Linq2SQL.Test
                 }
 
                 // Requery db to Assert that data updated
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -93,7 +97,7 @@ namespace Repository.Linq2SQL.Test
                 // Clean up the data so that its in the correct state
                 TestScriptHelper.ResetShipName();
             }
-        }        
+        }  
 
         [Test]
         public void Should_update_null_property_to_given_value()
@@ -103,7 +107,7 @@ namespace Repository.Linq2SQL.Test
             try
             {
                 // Get original  -- Arrange
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -112,7 +116,7 @@ namespace Repository.Linq2SQL.Test
 
                 toUpdate.ShipRegion = "West";
 
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -120,7 +124,7 @@ namespace Repository.Linq2SQL.Test
                 }
 
                 // Requery db to Assert that data updated
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -144,7 +148,7 @@ namespace Repository.Linq2SQL.Test
             try
             {
                 // Get original  -- Arrange
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -154,7 +158,7 @@ namespace Repository.Linq2SQL.Test
                 // alter property and then update -- Act
                 toUpdate.ShipName = null;
 
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 
@@ -162,7 +166,7 @@ namespace Repository.Linq2SQL.Test
                 }
 
                 // Requery db to Assert that data updated
-                using (var context = new RepositoryTestDataContext())
+                using (var context = new RepositoryTest())
                 {
                     var repo = new Repository<Order>(context);
 

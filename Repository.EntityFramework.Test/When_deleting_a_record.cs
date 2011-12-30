@@ -8,8 +8,6 @@ namespace Repository.EntityFramework.Test
     [TestFixture]
     public class When_deleting_a_record
     {
-        
-
         [Test]
         public void Should_throw_ArgumentNullException_if_null_passed_in()
         {
