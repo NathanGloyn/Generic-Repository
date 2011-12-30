@@ -53,7 +53,9 @@ namespace Repository.EntityFramework
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            objectSet.Attach(entity);
+            objectSet.DeleteObject(entity);
+            context.SaveChanges();
         }
 
         public IQueryable<T> Find(Expression<Func<T, bool>> filter)
