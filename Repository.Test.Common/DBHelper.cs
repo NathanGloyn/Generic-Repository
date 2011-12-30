@@ -1,7 +1,7 @@
 using System.Configuration;
 using UnitTest.Database;
 
-namespace Repository.Linq2SQL.Test
+namespace Repository.Test.Common
 {
     public class DBHelper
     {

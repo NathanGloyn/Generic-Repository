@@ -52,8 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblySetup.cs" />
+    <Compile Include="When_finding_records.cs" />
+    <Compile Include="When_inserting_data.cs" />
     <Compile Include="When_retrieving_all_records.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="When_retrieving_records_by_id.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

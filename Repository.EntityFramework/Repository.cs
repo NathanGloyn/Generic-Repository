@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Metadata.Edm;
 using System.Data.Objects;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -10,18 +13,26 @@ namespace Repository.EntityFramework
     {
         private readonly ObjectContext context;
         private IObjectSet<T> objectSet;
+        private EntitySet entitySet;
         private bool disposed = false;
 
         public Repository(ObjectContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
             this.context = context;
-            objectSet = this.context.CreateObjectSet<T>();
+            objectSet =  this.context.CreateObjectSet<T>();
+            entitySet = ((ObjectSet<T>) objectSet).EntitySet;
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            if (id < 0)
+                throw new ArgumentException("Id cannot be less than zero", "id");
+
+            var pk = entitySet.ElementType.KeyMembers[0];
+            var entityKey = new EntityKey(entitySet.EntityContainer.Name + "." + entitySet.Name, pk.Name, id);
+
+            return (T)context.GetObjectByKey(entityKey);
         }
 
         public IEnumerable<T> GetAll()
@@ -36,7 +47,8 @@ namespace Repository.EntityFramework
 
         public void Insert(T entity)
         {
-            throw new NotImplementedException();
+            objectSet.AddObject(entity);
+            context.SaveChanges();
         }
 
         public void Delete(T entity)

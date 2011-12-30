@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using Repository.Test.Common;
 
-namespace Repository.Linq2SQL.Test
+namespace Repository.EntityFramework.Test
 {
     [TestFixture]
     public class When_inserting_data
@@ -16,7 +16,7 @@ namespace Repository.Linq2SQL.Test
         [Test]
         public void Should_throw_ArgumentNullException_if_null_entity_provided()
         {
-            using (var context = new RepositoryTestDataContext())
+            using (var context = new RepositoryTest())
             {
                 var repo = new Repository<Order>(context);
 
@@ -47,7 +47,7 @@ namespace Repository.Linq2SQL.Test
                                    ShippedDate = shippedDate
                                };
             
-            using (var context = new RepositoryTestDataContext())
+            using (var context = new RepositoryTest())
             {
                 var repo = new Repository<Order>(context);
                 repo.Insert(newOrder);
@@ -78,8 +78,8 @@ namespace Repository.Linq2SQL.Test
                 ShipVia = 3,
                 ShippedDate = shippedDate
             };
-
-            using (var context = new RepositoryTestDataContext())
+            
+            using (var context = new RepositoryTest())
             {
                 var repo = new Repository<Order>(context);
                 repo.Insert(newOrder);
@@ -87,7 +87,7 @@ namespace Repository.Linq2SQL.Test
 
             Order inserted = null;
 
-            using (var context = new RepositoryTestDataContext())
+            using (var context = new RepositoryTest())
             {
                 var repo = new Repository<Order>(context);
                 inserted = repo.GetById(newOrder.OrderID);
