@@ -60,6 +60,22 @@ namespace Repository.Linq2SQL
             dataContext.SubmitChanges();
         }
 
+        public void Delete(T entity)
+        {
+            if (entity == null) throw new ArgumentNullException("entity");
+
+            Table<T> table = dataContext.GetTable<T>();
+
+            if (table.GetOriginalEntityState(entity) == null)
+            {
+                table.Attach(entity);
+            }
+
+            table.DeleteOnSubmit(entity);
+
+            dataContext.SubmitChanges();
+        }
+
         public IQueryable<T> Find(Expression<Func<T, bool>> filter)
         {
             if (filter == null) throw new ArgumentNullException("filter");

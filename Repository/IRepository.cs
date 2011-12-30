@@ -12,6 +12,7 @@ namespace Repository
         IEnumerable<T> GetAll();
         void Update(T entity);
         void Insert(T entity);
+        void Delete(T entity);
         IQueryable<T> Find(Expression<Func<T, bool>> filter);
 
     }

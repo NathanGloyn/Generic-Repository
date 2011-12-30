@@ -58,6 +58,7 @@
     <Compile Include="AssemblySetup.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="Satisfyr.NUnit.cs" />
+    <Compile Include="When_deleting_a_record.cs" />
     <Compile Include="When_finding_records.cs" />
     <Compile Include="When_inserting_data.cs" />
     <Compile Include="When_retrieving_all_records.cs" />
@@ -81,6 +82,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="TestScripts\Insert_deleted_order.sql" />
     <Content Include="TestScripts\Reset_Update_ShipName.sql" />
     <Content Include="TestScripts\Reset_Update_ShipRegion.sql" />
     <Content Include="TestScripts\Setup\01_Create_DataBase.sql" />
