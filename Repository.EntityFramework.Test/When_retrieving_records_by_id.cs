@@ -9,13 +9,13 @@ namespace Repository.EntityFramework.Test
     public class When_retrieving_records_by_id
     {
         [Test]
-        public void Should_throw_argument_exception_if_id_less_than_zero_provided()
+        public void Should_throw_ArgumentNullException_if_null_id_provided()
         {
             using (var context = new RepositoryTest())
             {
                 using (var repo = new Repository<Order>(context))
                 {
-                    Assert.Throws<ArgumentException>(() => repo.GetById(-1));
+                    Assert.Throws<ArgumentNullException>(() => repo.GetById(null));
                 }
             }
         }

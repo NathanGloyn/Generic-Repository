@@ -23,10 +23,9 @@ namespace Repository.EntityFramework
             entitySet = ((ObjectSet<T>) objectSet).EntitySet;
         }
 
-        public T GetById(int id)
+        public T GetById(object id)
         {
-            if (id < 0)
-                throw new ArgumentException("Id cannot be less than zero", "id");
+            if (id == null) throw new ArgumentNullException("id");
 
             var pk = entitySet.ElementType.KeyMembers[0];
             EntityKey entityKey = new EntityKey(entitySet.EntityContainer.Name + "." + entitySet.Name, pk.Name, id);

@@ -8,7 +8,7 @@ namespace Repository
 {
     public interface IRepository<T>:IDisposable where T:class
     {
-        T GetById(int id);
+        T GetById(object id);
         IEnumerable<T> GetAll();
         void Update(T entity);
         void Insert(T entity);

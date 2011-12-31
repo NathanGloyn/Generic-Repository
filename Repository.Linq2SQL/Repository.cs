@@ -18,10 +18,9 @@ namespace Repository.Linq2SQL
         }
 
 
-        public T GetById(int id)
+        public T GetById(object id)
         {
-            if(id < 0)
-                throw  new ArgumentException("Id cannot be less than zero", "id");
+            if (id == null) throw new ArgumentNullException("id");
 
             var itemParameter = Expression.Parameter(typeof(T), "item");
 
