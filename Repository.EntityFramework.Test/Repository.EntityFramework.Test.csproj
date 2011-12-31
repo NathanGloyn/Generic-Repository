@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblySetup.cs" />
+    <Compile Include="When_constructing_repository.cs" />
     <Compile Include="When_deleting_a_record.cs" />
     <Compile Include="When_finding_records.cs" />
     <Compile Include="When_inserting_data.cs" />

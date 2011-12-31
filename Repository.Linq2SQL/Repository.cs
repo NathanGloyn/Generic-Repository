@@ -14,6 +14,7 @@ namespace Repository.Linq2SQL
 
         public Repository(DataContext context)
         {
+            if (context == null) throw new ArgumentNullException("context");
             dataContext = context;
         }
 
