@@ -19,7 +19,7 @@ namespace Repository.Linq2SQL.Test
         }
 
         [Test]
-        public void Should_update_single_field_entity()
+        public void Should_update_entity_from_disconnected_context()
         {
             Order toUpdate = null;
 

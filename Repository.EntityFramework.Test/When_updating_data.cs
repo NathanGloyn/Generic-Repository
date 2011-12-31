@@ -19,7 +19,7 @@ namespace Repository.EntityFramework.Test
         }
 
         [Test]
-        public void Should_update_single_field_entity()
+        public void Should_update_entity_from_disconnected_context()
         {
             Order toUpdate = null;
 
@@ -59,7 +59,6 @@ namespace Repository.EntityFramework.Test
                 TestScriptHelper.ResetShipName();
             }
         }
-
 
         [Test]
         public void Should_update_entity_using_single_context()
